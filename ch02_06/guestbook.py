@@ -69,8 +69,26 @@ def index():
 
     return render_template("index.html", greeting_list = greeting_list)
 
+
+@application.route('/post', methods=['post'])
+def post():
+    """Comment's target url
+    """
+
+    # get the comment data
+    name = request.form.get('name') # name
+    comment = request.form.get('comments') # comment
+    create_at = datetime.now() # comment time
+
+    # save the date
+    save_data(name, comment, create_at)
+
+    # redirect to the top page
+    return redirect('/')
+
 if __name__ == '__main__':
-    save_data("test","test comment", datetime.now())
+   # save_data("test","test comment", datetime.now())
 
     # Run application when the IP address is 127.0.0.1 and the port is 5000
     application.run('127.0.0.1', 5000, debug=True)
+
