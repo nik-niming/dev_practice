@@ -86,6 +86,28 @@ def post():
     # redirect to the top page
     return redirect('/')
 
+
+@application.template_filter('nl2br')
+def nl2br_filter(s):
+    """
+    transform the new line in comment to <br> tag.
+    :param s:
+    :return:
+    """
+
+    return escape(s).replace('\n',Markup('</br>'))
+
+@application.template_filter('datetime_fmt')
+def datetime_fmt(dt):
+    """
+    the filter of making datetime to be shown friendly.
+    :param datetime:
+    :return:
+    """
+
+    return dt.strftime('%Y%m%d %H%:%M:%S')
+
+
 if __name__ == '__main__':
    # save_data("test","test comment", datetime.now())
 

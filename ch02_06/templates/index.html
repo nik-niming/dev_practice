@@ -32,8 +32,8 @@
             <h2>The comments history</h2>
             <div id="entries">
                 {% for greeting in greeting_list %}
-                <h3>{{ greeting.name }} commented at {{ greeting.create_at }}:</h3>
-                <p>{{ greeting.comment }}</p>
+                <h3>{{ greeting.name }} commented at {{ greeting.create_at | datetime_fmt }}</h3>
+                <p>{{ greeting.comment | nl2br }}</p>
                 {% endfor %}
             </div>
         </div>
