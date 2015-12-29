@@ -3,6 +3,11 @@
 __author__ = 'niming'
 
 import shelve
+from datetime import datetime
+
+from flask import Flask, request, render_template, redirect, escape, Markup
+
+application = Flask(__name__)
 
 DATA_FILE = "guestbook.dat"
 
@@ -37,3 +42,35 @@ def save_data(name, comment,create_at):
     # close the database file
     database.close()
 
+def load_data():
+    """
+    Return the comment data saved before
+
+    :return: greeting_list
+    """
+
+    # open the shelve module database file
+    database = shelve.open(DATA_FILE)
+
+    # get the greeting_list. if not, just return empty list.
+    greeting_list = database.get('greeting_list',[])
+
+    # close the database file
+    database.close()
+
+    return greeting_list
+
+@application.route('/')
+def index():
+    """Top page
+    Use template to show the page
+    """
+    greeting_list = load_data()
+
+    return render_template("index.html", greeting_list = greeting_list)
+
+if __name__ == '__main__':
+    save_data("test","test comment", datetime.now())
+
+    # Run application when the IP address is 127.0.0.1 and the port is 5000
+    application.run('127.0.0.1', 5000, debug=True)
