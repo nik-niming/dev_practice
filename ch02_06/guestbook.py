@@ -101,6 +101,8 @@ def nl2br_filter(s):
 def datetime_fmt(dt):
     """
     the filter of making datetime to be shown friendly.
+
+    for demo
     :param datetime:
     :return:
     """
